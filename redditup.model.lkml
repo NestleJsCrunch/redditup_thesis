@@ -9,3 +9,7 @@ datagroup: redditup_default_datagroup {
 }
 
 persist_with: redditup_default_datagroup
+
+explore: mongin_reddit {
+  from: subreddits
+}
