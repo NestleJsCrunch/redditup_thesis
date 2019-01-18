@@ -13,3 +13,7 @@ persist_with: redditup_default_datagroup
 explore: mongin_reddit {
   from: subreddits
 }
+
+explore: mongin_posts {
+  from: all_posts
+}
