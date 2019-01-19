@@ -36,11 +36,13 @@ dimension: author {
 dimension: author_flair_css_class {
   type: string
   sql: ${TABLE}.author_flair_css_class ;;
+  hidden: yes
 }
 
 dimension: author_flair_text {
   type: string
   sql: ${TABLE}.author_flair_text ;;
+  hidden: yes
 }
 
 dimension: created {
@@ -61,26 +63,31 @@ dimension: distinguished {
 dimension: domain {
   type: string
   sql: ${TABLE}.domain ;;
+  hidden: yes
 }
 
 dimension: downs {
   type: number
   sql: ${TABLE}.downs ;;
+  #key metric
 }
 
 dimension: from {
   type: string
   sql: ${TABLE}.`from` ;;
+  hidden: yes
 }
 
 dimension: from_id {
   type: string
   sql: ${TABLE}.from_id ;;
+  hidden: yes
 }
 
 dimension: from_kind {
   type: string
   sql: ${TABLE}.from_kind ;;
+  hidden: yes
 }
 
 dimension: gilded {
@@ -91,6 +98,7 @@ dimension: gilded {
 dimension: hide_score {
   type: yesno
   sql: ${TABLE}.hide_score ;;
+  hidden: yes
 }
 
 dimension: is_self {
@@ -101,11 +109,13 @@ dimension: is_self {
 dimension: link_flair_css_class {
   type: string
   sql: ${TABLE}.link_flair_css_class ;;
+  hidden: yes
 }
 
 dimension: link_flair_text {
   type: string
   sql: ${TABLE}.link_flair_text ;;
+  hidden: yes
 }
 
 dimension: name {
@@ -136,11 +146,13 @@ dimension: quarantine {
 dimension: retrieved_on {
   type: number
   sql: ${TABLE}.retrieved_on ;;
+  hidden: yes
 }
 
 dimension: saved {
   type: yesno
   sql: ${TABLE}.saved ;;
+  hidden: yes
 }
 
 dimension: score {
@@ -156,6 +168,7 @@ dimension: selftext {
 dimension: stickied {
   type: yesno
   sql: ${TABLE}.stickied ;;
+  hidden: yes
 }
 
 dimension: subreddit {
@@ -172,6 +185,7 @@ dimension: subreddit_id {
 dimension: thumbnail {
   type: string
   sql: ${TABLE}.thumbnail ;;
+  hidden: yes
 }
 
 dimension: title {
