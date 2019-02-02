@@ -148,24 +148,26 @@ measure: count {
 }
 
 measure: total_upvotes {
-  type: sum
-  sql: ${ups} ;;
+  type: number
+  sql: sum(${ups}) ;;
 }
 
-measure: total_downvotes {
-  type: sum
-  sql: ${downs} ;;
-}
+#no data
+# measure: total_downvotes {
+#   type: number
+#   sql: sum(${downs}) ;;
+# }
 
 measure: total_comments {
-  type: sum
-  sql: ${num_comments} ;;
+  type: number
+  sql: sum(${num_comments}) ;;
 }
 
-measure: total_interactions {
-  type: number
-  sql: sum(${total_comments},${total_downvotes},${total_upvotes})  ;;
-}
+#this broken
+# measure: total_interactions {
+#   type: number
+#   sql: sum(${total_comments},${total_upvotes})  ;;
+# }
 
 
 

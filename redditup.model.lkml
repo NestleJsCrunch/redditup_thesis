@@ -18,6 +18,28 @@ explore: mongin_posts {
   from: all_posts
 }
 
-explore: test_post1 {
+explore: all_posts {
+  from: all_posts
+}
+
+explore: poster_metrics {
+  from: poster_metrics
+}
+
+
+###Diagnostics for unit testing on abscence of key metrics
+explore: dia_post1 {
   from: posts1
+}
+
+explore: dia_post2 {
+  from: posts2
+}
+
+explore: dia_post3 {
+  from: posts3
+}
+
+explore: dia_post4 {
+  from: posts4
 }
