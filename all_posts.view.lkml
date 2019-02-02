@@ -176,6 +176,7 @@ measure: unique_authors {
   sql: ${author} ;;
 
 #measure: Communities_per_author {}
+#create derived table of all posters + all post metrics
 
 #measure: Average_Communities_per_author:
 
