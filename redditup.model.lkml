@@ -17,3 +17,7 @@ explore: mongin_reddit {
 explore: mongin_posts {
   from: all_posts
 }
+
+explore: test_post1 {
+  from: posts1
+}

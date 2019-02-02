@@ -1,50 +1,21 @@
 view: subreddits {
   sql_table_name: Reddit_thesis_subreddits.subreddits ;;
 
+###METADATA
   dimension: id {
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
   }
 
-  dimension: banner_img {
-    type: string
-    sql: ${TABLE}.banner_img ;;
-    hidden: yes
-  }
-
-  dimension: collapse_deleted_comments {
-    type: yesno
-    sql: ${TABLE}.collapse_deleted_comments ;;
-    #label: "may be useful in comparing quarantined vs unquarantined subs"
-  }
-
-  dimension: comment_score_hide_mins {
-    type: number
-    sql: ${TABLE}.comment_score_hide_mins ;;
-    hidden: yes
-  }
-
   dimension: created {
-    type: number
+    type: date
     sql: ${TABLE}.created ;;
   }
 
   dimension: created_utc {
-    type: number
+    type: date
     sql: ${TABLE}.created_utc ;;
-  }
-
-  dimension: description {
-    type: string
-    sql: ${TABLE}.description ;;
-#     label: "won't be interesting at scale"
-  }
-
-  dimension: description_html {
-    type: string
-    sql: ${TABLE}.description_html ;;
-    hidden: yes
   }
 
   dimension: display_name {
@@ -52,28 +23,10 @@ view: subreddits {
     sql: ${TABLE}.display_name ;;
   }
 
-  dimension: header_img {
-    type: string
-    sql: ${TABLE}.header_img ;;
-    hidden: yes
-  }
-
-  dimension: header_title {
-    type: string
-    sql: ${TABLE}.header_title ;;
-#     label: "what is this"
-  }
-
   dimension: hide_ads {
     type: yesno
     sql: ${TABLE}.hide_ads ;;
 #     label: "what is this"
-  }
-
-  dimension: icon_img {
-    type: string
-    sql: ${TABLE}.icon_img ;;
-    hidden: yes
   }
 
   dimension: lang {
@@ -100,18 +53,6 @@ view: subreddits {
 #     label: "bad at scale"
   }
 
-  dimension: public_description_html {
-    type: string
-    sql: ${TABLE}.public_description_html ;;
-    hidden: yes
-  }
-
-  dimension: public_traffic {
-    type: yesno
-    sql: ${TABLE}.public_traffic ;;
-#     label: "is this what I think it is"
-  }
-
   dimension: quarantine {
     type: yesno
     sql: ${TABLE}.quarantine ;;
@@ -124,29 +65,6 @@ view: subreddits {
 #     label: "could be interesting for analysis"
   }
 
-  dimension: submit_link_label {
-    type: string
-    sql: ${TABLE}.submit_link_label ;;
-    hidden: yes
-  }
-
-  dimension: submit_text {
-    type: string
-    sql: ${TABLE}.submit_text ;;
-#     label: "bad at scale"
-  }
-
-  dimension: submit_text_html {
-    type: string
-    sql: ${TABLE}.submit_text_html ;;
-    hidden: yes
-  }
-
-  dimension: submit_text_label {
-    type: string
-    sql: ${TABLE}.submit_text_label ;;
-    hidden: yes
-  }
 
   dimension: subreddit_type {
     type: string
@@ -154,16 +72,119 @@ view: subreddits {
 #     label: "is this what I think it is"
   }
 
+
+  dimension: title {
+    type: string
+    sql: ${TABLE}.title ;;
+#     label: "bad at scale"
+  }
+
+
+###SUBREDDIT KPIS
+
   dimension: subscribers {
     type: number
     sql: ${TABLE}.subscribers ;;
 #     label: "key metric"
   }
 
-  dimension: title {
+  dimension: public_traffic {
+    type: yesno
+    sql: ${TABLE}.public_traffic ;;
+#     label: "is this what I think it is"
+  }
+
+
+###SUBREDDIT AGGS
+
+
+
+###UNUSED DIMENSIONS
+
+
+#   dimension: banner_img {
+#     type: string
+#     sql: ${TABLE}.banner_img ;;
+#     hidden: yes
+#   }
+#
+#   dimension: collapse_deleted_comments {
+#     type: yesno
+#     sql: ${TABLE}.collapse_deleted_comments ;;
+#     #label: "may be useful in comparing quarantined vs unquarantined subs"
+#   }
+#
+#   dimension: comment_score_hide_mins {
+#     type: number
+#     sql: ${TABLE}.comment_score_hide_mins ;;
+#     hidden: yes
+#   }
+
+#   dimension: description_html {
+#     type: string
+#     sql: ${TABLE}.description_html ;;
+#     hidden: yes
+#   }
+#   dimension: header_img {
+#     type: string
+#     sql: ${TABLE}.header_img ;;
+#     hidden: yes
+#   }
+#   dimension: header_title {
+#     type: string
+#     sql: ${TABLE}.header_title ;;
+# #     label: "what is this"
+#   }
+
+#   dimension: icon_img {
+#     type: string
+#     sql: ${TABLE}.icon_img ;;
+#     hidden: yes
+#   }
+
+#   dimension: public_description_html {
+#     type: string
+#     sql: ${TABLE}.public_description_html ;;
+#     hidden: yes
+#   }
+
+#   dimension: submit_link_label {
+#     type: string
+#     sql: ${TABLE}.submit_link_label ;;
+#     hidden: yes
+#   }
+#
+#   dimension: submit_text {
+#     type: string
+#     sql: ${TABLE}.submit_text ;;
+# #     label: "bad at scale"
+#   }
+#
+#   dimension: submit_text_html {
+#     type: string
+#     sql: ${TABLE}.submit_text_html ;;
+#     hidden: yes
+#   }
+#
+#   dimension: submit_text_label {
+#     type: string
+#     sql: ${TABLE}.submit_text_label ;;
+#     hidden: yes
+#   }
+
+#   dimension: user_sr_theme_enabled {
+#     type: yesno
+#     sql: ${TABLE}.user_sr_theme_enabled ;;
+#     hidden: yes
+#   }
+
+
+
+### FOR FINAL ONLY
+  dimension: description {
     type: string
-    sql: ${TABLE}.title ;;
-#     label: "bad at scale"
+    sql: ${TABLE}.description ;;
+#     label: "won't be interesting at scale"
   }
 
   dimension: url {
@@ -172,11 +193,6 @@ view: subreddits {
 #     label: "interesting for output"
   }
 
-  dimension: user_sr_theme_enabled {
-    type: yesno
-    sql: ${TABLE}.user_sr_theme_enabled ;;
-    hidden: yes
-  }
 
   measure: count {
     type: count

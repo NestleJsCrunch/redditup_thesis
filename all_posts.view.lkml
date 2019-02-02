@@ -1,48 +1,36 @@
 view: all_posts {
+### THIS BRINGS ALL POST DATA INTO ONE TABLE
  derived_table: {
    sql:
 
-  select * from posts1
+  select * from Reddit_thesis_subreddits.posts1
 
   UNION ALL
 
-  SELECT * FROM posts2
+  SELECT * from Reddit_thesis_subreddits.posts2
 
   UNION ALL
 
-  SELECT * FROM posts3
+  SELECT * from Reddit_thesis_subreddits.posts3
 
   UNION ALL
 
-  SELECT * FROM posts4 ;;
+  SELECT * from Reddit_thesis_subreddits.posts4 ;;
+  persist_for: "50000 hours"
  }
 
+
+
+### POST METADATA
 dimension: id {
   primary_key: yes
   type: string
   sql: ${TABLE}.id ;;
 }
 
-dimension: archived {
-  type: yesno
-  sql: ${TABLE}.archived ;;
-}
-
 dimension: author {
   type: string
   sql: ${TABLE}.author ;;
-}
-
-dimension: author_flair_css_class {
-  type: string
-  sql: ${TABLE}.author_flair_css_class ;;
-  hidden: yes
-}
-
-dimension: author_flair_text {
-  type: string
-  sql: ${TABLE}.author_flair_text ;;
-  hidden: yes
 }
 
 dimension: created {
@@ -55,21 +43,10 @@ dimension: created_utc {
   sql: ${TABLE}.created_utc ;;
 }
 
-dimension: distinguished {
-  type: string
-  sql: ${TABLE}.distinguished ;;
-}
-
 dimension: domain {
   type: string
   sql: ${TABLE}.domain ;;
   hidden: yes
-}
-
-dimension: downs {
-  type: number
-  sql: ${TABLE}.downs ;;
-  #key metric
 }
 
 dimension: from {
@@ -90,42 +67,9 @@ dimension: from_kind {
   hidden: yes
 }
 
-dimension: gilded {
-  type: number
-  sql: ${TABLE}.gilded ;;
-}
-
-dimension: hide_score {
-  type: yesno
-  sql: ${TABLE}.hide_score ;;
-  hidden: yes
-}
-
-dimension: is_self {
-  type: yesno
-  sql: ${TABLE}.is_self ;;
-}
-
-dimension: link_flair_css_class {
-  type: string
-  sql: ${TABLE}.link_flair_css_class ;;
-  hidden: yes
-}
-
-dimension: link_flair_text {
-  type: string
-  sql: ${TABLE}.link_flair_text ;;
-  hidden: yes
-}
-
 dimension: name {
   type: string
   sql: ${TABLE}.name ;;
-}
-
-dimension: num_comments {
-  type: number
-  sql: ${TABLE}.num_comments ;;
 }
 
 dimension: over_18 {
@@ -143,32 +87,9 @@ dimension: quarantine {
   sql: ${TABLE}.quarantine ;;
 }
 
-dimension: retrieved_on {
-  type: number
-  sql: ${TABLE}.retrieved_on ;;
-  hidden: yes
-}
-
-dimension: saved {
-  type: yesno
-  sql: ${TABLE}.saved ;;
-  hidden: yes
-}
-
-dimension: score {
-  type: number
-  sql: ${TABLE}.score ;;
-}
-
 dimension: selftext {
   type: string
   sql: ${TABLE}.selftext ;;
-}
-
-dimension: stickied {
-  type: yesno
-  sql: ${TABLE}.stickied ;;
-  hidden: yes
 }
 
 dimension: subreddit {
@@ -182,32 +103,157 @@ dimension: subreddit_id {
   sql: ${TABLE}.subreddit_id ;;
 }
 
-dimension: thumbnail {
-  type: string
-  sql: ${TABLE}.thumbnail ;;
-  hidden: yes
-}
-
 dimension: title {
   type: string
   sql: ${TABLE}.title ;;
 }
+
+  dimension: url {
+    type: string
+    sql: ${TABLE}.url ;;
+  }
+
+###POST KPIS
+dimension: downs {
+    type: number
+    sql: ${TABLE}.downs ;;
+    #key metric
+  }
 
 dimension: ups {
   type: number
   sql: ${TABLE}.ups ;;
 }
 
-dimension: url {
-  type: string
-  sql: ${TABLE}.url ;;
-}
+dimension: num_comments {
+    type: number
+    sql: ${TABLE}.num_comments ;;
+  }
+
+dimension: gilded {
+    type: number
+    sql: ${TABLE}.gilded ;;
+  }
+
+  dimension: score {
+    type: number
+    sql: ${TABLE}.score ;;
+  }
+
+###POST AGG
 
 measure: count {
   type: count
   drill_fields: [id, name, subreddits.id, subreddits.display_name, subreddits.name]
 }
 
+measure: total_upvotes {
+  type: sum
+  sql: ${ups} ;;
+}
+
+measure: total_downvotes {
+  type: sum
+  sql: ${downs} ;;
+}
+
+measure: total_comments {
+  type: sum
+  sql: ${num_comments} ;;
+}
+
+measure: total_interactions {
+  type: number
+  sql: sum(${total_comments},${total_downvotes},${total_upvotes})  ;;
+}
+
+
+
+###POSTER ANALYTICS
+
+measure: unique_authors {
+  type: count_distinct
+  sql: ${author} ;;
+
+#measure: Communities_per_author {}
+
+#measure: Average_Communities_per_author:
+
+
+
+
+}
 }
 # https://discourse.looker.com/t/how-to-have-one-view-for-multiple-database-tables/4003
-#
+
+
+### UNUSED DIMENSIONS
+# dimension: archived {
+#   type: yesno
+#   sql: ${TABLE}.archived ;;
+# }
+
+
+# dimension: thumbnail {
+#   type: string
+#   sql: ${TABLE}.thumbnail ;;
+#   hidden: yes
+# }
+
+# dimension: author_flair_css_class {
+#   type: string
+#   sql: ${TABLE}.author_flair_css_class ;;
+#   hidden: yes
+# }
+
+# dimension: author_flair_text {
+#   type: string
+#   sql: ${TABLE}.author_flair_text ;;
+#   hidden: yes
+# }
+
+# dimension: distinguished {
+#   type: string
+#   sql: ${TABLE}.distinguished ;;
+# }
+
+# dimension: hide_score {
+#   type: yesno
+#   sql: ${TABLE}.hide_score ;;
+#   hidden: yes
+# }
+
+# dimension: is_self {
+#   type: yesno
+#   sql: ${TABLE}.is_self ;;
+# }
+
+# dimension: link_flair_css_class {
+#   type: string
+#   sql: ${TABLE}.link_flair_css_class ;;
+#   hidden: yes
+# }
+
+# dimension: link_flair_text {
+#   type: string
+#   sql: ${TABLE}.link_flair_text ;;
+#   hidden: yes
+# }
+
+# dimension: retrieved_on {
+#   type: number
+#   sql: ${TABLE}.retrieved_on ;;
+#   hidden: yes
+# }
+
+# dimension: saved {
+#   type: yesno
+#   sql: ${TABLE}.saved ;;
+#   hidden: yes
+# }
+
+# dimension: stickied {
+#   type: yesno
+#   sql: ${TABLE}.stickied ;;
+#   hidden: yes
+# }
